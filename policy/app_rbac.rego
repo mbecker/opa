@@ -43,9 +43,10 @@ allow {
 	input.action == grant.action
 	input.type == grant.type
 }
+connections_per_second = 7 { input.tier == "gold" }
 
 # user_is_admin is true if...
-user_is_admin {
+user_is_admin = false {
 	# "admin" is among the user's roles as per data.user_roles
 	"admin" in data.user_roles[input.user]
 }
@@ -60,6 +61,7 @@ user_iot_owner[resourceky] {
   # [iotresource]
 }
 
+default user_iot_is_owner = false
 user_iot_is_owner {
 	input.user in data.iot[input.iot]["owner"]
 }

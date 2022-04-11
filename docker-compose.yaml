@@ -18,7 +18,8 @@ services:
       - "--log-level=debug"
       - "--watch"
       - "--bundle=true"
-      - "policy"
+      # - "policy"
+      - "/policy/bundle.tar.gz"
       # - "app_rbac.rego"
       # - "roles:data.json"
     volumes:

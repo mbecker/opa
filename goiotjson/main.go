@@ -34,7 +34,7 @@ func main() {
 	flag.Parse()
 
 	// Open our jsonFile
-	jsonFile, err := os.Open("./../policy/data_backup.json")
+	jsonFile, err := os.Open("./data_backup.json")
 	// if we os.Open returns an error then handle it
 	if err != nil {
 		fmt.Println(err)
