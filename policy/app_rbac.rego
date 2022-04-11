@@ -66,6 +66,16 @@ user_iot_is_owner {
 	input.user in data.iot[input.iot]["owner"]
 }
 
+# default user_iot_is_owner_list = false
+user_iot_is_owner_list[valiots] {
+	iotlist := split(input.iots, ",")
+	# "c9aal9ngfpnt0988bh30" == iotlist[0]
+	# valiots := iots[_]
+	some valiots in iotlist
+	resourceval := data.iot[valiots]
+	input.user in resourceval["owner"]
+}
+
 user_iot_reader[resourceky] {
   # iterate over key/value pairs
   resourceval := data.iot[resourceky]
