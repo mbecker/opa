@@ -31,10 +31,12 @@ type IoTs map[string]IoTDevice
 func main() {
 
 	nIterations := flag.Int("number", 0, "How many iterations")
+	fileName := flag.String("file", "./data_backup.json", "File path / name")
+	fileOut := flag.String("out", "./../policy/data.json", "File output file path")
 	flag.Parse()
 
 	// Open our jsonFile
-	jsonFile, err := os.Open("./data_backup.json")
+	jsonFile, err := os.Open(*fileName)
 	// if we os.Open returns an error then handle it
 	if err != nil {
 		fmt.Println(err)
@@ -49,42 +51,6 @@ func main() {
 	var m map[string]interface{}
 	json.Unmarshal(byteValue, &m)
 
-	iiots, ok := m["iot"].(map[string]interface{})
-	if !ok {
-		log.Panic("No mapping")
-	}
-	iots := IoTs{}
-	for k, v := range iiots {
-		iotdevice, ok := v.(map[string]interface{})
-		if !ok {
-			log.Println("Single IotDevice is not map string interface")
-			continue
-		}
-		ow, exists := iotdevice["owner"]
-		if !exists {
-			log.Println("Singe IotDevice has no owner")
-			continue
-		}
-		owners, ok := ow.([]interface{})
-		if !ok {
-			log.Println("Single IotDevice owner is not an string array")
-			continue
-		}
-		ownerss := []string{}
-		for _, o := range owners {
-			oo, ok := o.(string)
-			if !ok {
-				continue
-			}
-			ownerss = append(ownerss, oo)
-		}
-		id := IoTDevice{
-			Owner: ownerss,
-		}
-		iots[k] = id
-	}
-	log.Println(iots)
-
 	/*
 		Random fakte data
 	*/
@@ -94,6 +60,7 @@ func main() {
 		"gian", "hannes", "jan", "kay", "leon", "thomas", "manuel", "liam", "robert", "michael", "timo", "antje", "herbert", "wolfgang", "mario",
 	}
 	log.Printf("Number iterations: %d", *nIterations)
+	iots := IoTs{}
 	for i := 0; i < *nIterations; i++ {
 		// randomIndex := rand.Intn(len(in))
 		// oname := ownernames[randomIndex]
@@ -116,10 +83,10 @@ func main() {
 	// Write JSON file
 	m["iot"] = iots
 	file, _ := json.Marshal(m)
-	_ = ioutil.WriteFile("./../policy/data.json", file, 0644)
+	_ = ioutil.WriteFile(*fileOut, file, 0644)
 
 	// Get file size
-	fi, err := os.Stat("./../policy/data.json")
+	fi, err := os.Stat(*fileOut)
 	if err != nil {
 		log.Panic(err)
 	}

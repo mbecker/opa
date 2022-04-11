@@ -1,11 +1,8 @@
-curl --location --request POST 'http://localhost:8181/v1/data/app/rbac/user_is_admin?metrics&partial' \
+curl -w "@curl-format.txt" -o /dev/null --location --request POST 'http://localhost:8181/v1/data/app/rbac/user_iot_owner?metrics' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "input": {
-        "user": "robert",
-        "action": "read",
-        "object": "id123",
-        "type": "dog",
+        "user": "mats",
         "iot": "1-2-3-4"
     }
 }'

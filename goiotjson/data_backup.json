@@ -1,31 +1,4 @@
 {
-  "users": {
-    "mats": {
-      "owner": [
-        "1-2-3-4"
-      ]
-    }
-  },
-  "iot": {
-    "1-2-3-4": {
-      "owner": [
-        "mats"
-      ]
-    },
-    "1-2-3-5": {
-      "owner": [
-        "lisa"
-      ],
-      "reader": [
-        "mats"
-      ]
-    },
-    "1-2-3-6": {
-      "owner": [
-        "mats"
-      ]
-    }
-  },
   "user_roles": {
     "alice": [
       "admin"
@@ -94,5 +67,6 @@
         "type": "finance"
       }
     ]
-  }
+  },
+  "iot": {}
 }
