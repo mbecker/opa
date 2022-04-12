@@ -14,12 +14,12 @@ services:
     command:
       - "run"
       - "--server"
-      - "--format=pretty" # pretty, json
-      - "--log-level=debug"
+      - "--format=text" # pretty, json, text
+      - "--log-level=info" #info
       - "--watch"
       - "--bundle=true"
-      - "policy"
-      # - "/policy/bundle.tar.gz"
+      # - "policy"
+      - "/policy/bundle.tar.gz"
       # - "app_rbac.rego"
       # - "roles:data.json"
     volumes:

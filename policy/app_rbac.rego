@@ -38,6 +38,7 @@ allow {
 	# Find grants for the user.
 	some grant
 	user_is_granted[grant]
+	print(grant)
 
 	# Check if the grant permits the action.
 	input.action == grant.action
@@ -67,13 +68,26 @@ user_iot_is_owner {
 }
 
 # default user_iot_is_owner_list = false
-user_iot_is_owner_list[valiots] {
+user_iot_is_owner_list[valiots] = exists {
 	iotlist := split(input.iots, ",")
-	# "c9aal9ngfpnt0988bh30" == iotlist[0]
-	# valiots := iots[_]
 	some valiots in iotlist
+	foo_exists = has_key(data.iot, valiots)
+	print(foo_exists)
+	
+	
 	resourceval := data.iot[valiots]
-	input.user in resourceval["owner"]
+	exists := input.user in resourceval["owner"]
+	
+}
+
+has_key(x, k) { 
+	_ = x[k]
+}
+
+user_iot_is_owner_list[valiots] = false {
+	iotlist := split(input.iots, ",")
+	some valiots in iotlist
+	not data.iot[valiots]
 }
 
 user_iot_reader[resourceky] {

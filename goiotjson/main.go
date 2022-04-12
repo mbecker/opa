@@ -61,6 +61,9 @@ func main() {
 	}
 	log.Printf("Number iterations: %d", *nIterations)
 	iots := IoTs{}
+	for i := 0; i < 9; i++ {
+		iots[fmt.Sprintf("a%d", i)] = IoTDevice{Owner: []string{"mats", "lisa"}}
+	}
 	for i := 0; i < *nIterations; i++ {
 		// randomIndex := rand.Intn(len(in))
 		// oname := ownernames[randomIndex]

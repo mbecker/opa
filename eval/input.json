@@ -1,0 +1,10 @@
+{
+  
+    "user": "bob",
+    "iot": "c9aal9ngfpnt0988bh30",
+    "iots": "a1,a2,a3,b1,b2,b3,c9amf37gfpntg7h7etdg,c1",
+    
+    "action": "read",
+    "object": "id123",
+    "type": "dog"
+}
