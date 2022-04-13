@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
   opa:
-    image: openpolicyagent/opa:0.40.0-dev-rootless
+    image: openpolicyagent/opa:0.40.0-dev-rootless # opa:0.40.0-dev-debu
     container_name: opa
     ports:
       - 8181:8181
@@ -15,15 +15,18 @@ services:
       - "run"
       - "--server"
       - "--format=text" # pretty, json, text
-      - "--log-level=info" #info
+      - "--log-level=debug" #info, info
       - "--watch"
+      # - "--config-file=config.yaml"
       - "--bundle=true"
-      # - "policy"
-      - "/policy/bundle.tar.gz"
+      - "policy"
+      # - "/policy/bundle.tar.gz"
       # - "app_rbac.rego"
       # - "roles:data.json"
     volumes:
       - ./policy:/policy
+      - ./data:/data
+      - ./config/config.yaml:/config.yaml
     networks:
       - opa
 

@@ -24,6 +24,12 @@ import (
     },
 */
 
+type User struct {
+	IoT []string `json:"iot"`
+}
+
+type Users map[string]User
+
 type IoTDevice struct {
 	Owner []string `json:"owner"`
 }
@@ -64,6 +70,8 @@ func main() {
 	}
 	p := message.NewPrinter(language.German)
 	log.Println(p.Sprintf("Number iterations: %d", *nIterations))
+
+	/* Create IoT structure randomly
 	iots := IoTs{}
 	for i := 0; i < 9; i++ {
 		iots[fmt.Sprintf("a%d", i)] = IoTDevice{Owner: []string{"mats", "lisa"}}
@@ -86,9 +94,21 @@ func main() {
 		guid := xid.New()
 		iots[guid.String()] = IoTDevice{Owner: []string{oname}}
 	}
+	m["iot"] = iots
+	*/
+
+	users := Users{}
+	for _, owner := range ownernames {
+		user := User{}
+		for i := 0; i < *nIterations; i++ {
+			user.IoT = append(user.IoT, xid.New().String())
+		}
+		users[owner] = user
+	}
+	m["users"] = users
 
 	// Write JSON file
-	m["iot"] = iots
+
 	file, _ := json.Marshal(m)
 	_ = ioutil.WriteFile(*fileOut, file, 0644)
 

@@ -1,0 +1,5 @@
+storage:
+  disk:
+    directory: "/data"
+    auto_create: false
+    partitions: ["/users"]
