@@ -11,6 +11,8 @@ import (
 	"time"
 
 	"github.com/rs/xid"
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
 )
 
 /*
@@ -40,8 +42,9 @@ func main() {
 	// if we os.Open returns an error then handle it
 	if err != nil {
 		fmt.Println(err)
+	} else {
+		fmt.Println("Successfully opened data_backup.json")
 	}
-	fmt.Println("Successfully opened data_backup.json")
 	// defer the closing of our jsonFile so that we can parse it later on
 	defer jsonFile.Close()
 
@@ -59,7 +62,8 @@ func main() {
 		"mats", "lisa", "bob", "alice", "darius", "emil", "chris",
 		"gian", "hannes", "jan", "kay", "leon", "thomas", "manuel", "liam", "robert", "michael", "timo", "antje", "herbert", "wolfgang", "mario",
 	}
-	log.Printf("Number iterations: %d", *nIterations)
+	p := message.NewPrinter(language.German)
+	log.Println(p.Sprintf("Number iterations: %d", *nIterations))
 	iots := IoTs{}
 	for i := 0; i < 9; i++ {
 		iots[fmt.Sprintf("a%d", i)] = IoTDevice{Owner: []string{"mats", "lisa"}}
