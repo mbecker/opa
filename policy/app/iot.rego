@@ -2,8 +2,8 @@ package app.iot
 
 import future.keywords.in
 
-has_iot_x := [key | data.iot[key]; input.user in data.iot[key]["owner"]]
-has_iot_c := count(has_iot_x) < 100
+# has_iot_x := [key | data.iot[key]; input.user in data.iot[key]["owner"]]
+# has_iot_c := count(has_iot_x) < 100
 
 default iot_x = []
 iot_x = data.users[input.user]["iot"]
@@ -38,3 +38,18 @@ iot_t := {"msg": sprintf("number iot: %d", [iot_n]), "isAllowed": iot_p}
 # number_iot = output {
 #     output := count(has_iot)
 # }
+default is_owner = false
+is_owner = input.user in data.teams[input.teamid]["owner"]
+
+default is_member = false
+is_member {
+  input.user in data.teams[input.teamid]["member"]
+}
+is_member {
+  is_owner
+}
+# is_member = input.user in data.teams[input.teamid]["member"]
+# is_member = is_owner
+
+is_owner_x["owner"] = is_owner
+is_owner_x["member"] = is_member

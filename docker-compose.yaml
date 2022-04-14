@@ -17,14 +17,16 @@ services:
       - "--format=text" # pretty, json, text
       - "--log-level=debug" #info, info
       - "--watch"
-      # - "--config-file=config.yaml"
-      - "--bundle=true"
+      - "--config-file=config.yaml"
+      # - "--bundle=true"
       - "policy"
+      # - "users"
       # - "/policy/bundle.tar.gz"
       # - "app_rbac.rego"
       # - "roles:data.json"
     volumes:
       - ./policy:/policy
+      # - ./users:/users
       - ./data:/data
       - ./config/config.yaml:/config.yaml
     networks:
